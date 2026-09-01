@@ -69,7 +69,7 @@
 
 ### 단계별 풀이 가이드
 
-**1. 원본 서버의 구분 기호(Delimiter) 찾기**
+**1). 원본 서버의 구분 기호(Delimiter) 찾기**
 
 1. Burp 내장 브라우저로 랩 접속 후 `wiener : peter` 계정으로 로그인합니다.
 2. `Proxy > HTTP history`에서 `GET /my-account` 요청을 찾아 **Repeater**와 **Intruder**로 보냅니다.
@@ -78,14 +78,14 @@
 5. **Payload Encoding** 항목의 `URL-encode these characters` **체크를 해제**합니다. (특수문자가 `%3B` 등으로 인코딩되지 않고 그대로 날아가야 함)
 6. **Start attack** 클릭 후 결과를 Status code로 정렬하면, `;`와 `?`를 넣었을 때만 **200 OK**가 떨어지며 API 키가 반환되는 것을 확인할 수 있습니다. (서버가 `;`와 `?`를 구분 기호로 쓴다는 뜻)
 
-**2. 캐시 서버와의 불일치 검증**
+**2). 캐시 서버와의 불일치 검증**
 
 1. Repeater로 돌아와 `GET /my-account?abc.js`를 전송합니다. -> 응답 헤더에 캐시 관련 흔적이 남지 않음 (`?`는 캐시 서버도 구분 기호로 인식함).
 2. 경로를 `GET /my-account;abc.js` (또는 `;wcd.js`)로 바꾸어 전송합니다. -> 응답 헤더에 `X-Cache: miss`가 찍힙니다.
 3. 동일한 요청을 **한 번 더 전송**합니다. -> 응답 헤더가 `X-Cache: hit`으로 바뀝니다!
     - **의미**: 캐시 서버는 `;`를 구분자로 인식하지 않아 전체를 `.js` 파일 요청으로 오인하고 응답을 저장한 것입니다.
 
-**3. 악성 익스플로잇 페이로드 작성 및 전달**
+**3). 악성 익스플로잇 페이로드 작성 및 전달**
 
 1. 상단의 **Go to exploit server** 버튼을 클릭합니다.
 2. **Body** 란에 피해자(`carlos`)가 해당 주소로 접속하도록 유도하는 자바스크립트 코드를 작성합니다.
@@ -100,7 +100,7 @@
 
 1. **Deliver exploit to victim** 버튼을 누릅니다. 피해자가 이 페이지를 열면서 피해자의 개인정보(`/my-account`)가 `.js` 캐시로 저장됩니다.
 
-**4. API 키 탈취 및 제출**
+**4). API 키 탈취 및 제출**
 
 1. 브라우저 주소창에 피해자가 탈취당한 주소(`https://YOUR-LAB-ID.web-security-academy.net/my-account;wcd.js`)로 직접 접속합니다.
 2. 캐시 서버에 남아 있는 **`carlos`의 API 키**가 화면에 출력되는 것을 확인하고 복사합니다.
@@ -148,11 +148,11 @@ CDN (Content Delivery Network, 콘텐츠 전송 네트워크)은 전 세계 여�
 
 문제풀이
 
-1. '정규화 불일치(Normalization Discrepancies)'를 이용하는 PortSwigger 랩입니다.
+2. '정규화 불일치(Normalization Discrepancies)'를 이용하는 PortSwigger 랩입니다.
 
 → 504게이트웨이가 나와서 문제를 못풀었다.. 랩이 안나옴
 
-1. 캐시 서버가 URL을 정규화(Normalization)하는 허점과 원본 서버의 구분 기호 인식 차이를 동시에 이용하는 것
+3. 캐시 서버가 URL을 정규화(Normalization)하는 허점과 원본 서버의 구분 기호 인식 차이를 동시에 이용하는 것
 
 **핵심 메커니즘**
 
