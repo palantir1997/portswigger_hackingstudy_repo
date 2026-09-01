@@ -65,6 +65,8 @@ api값이 나오고 그걸 주면됨
 
 2-6 **Authentication vulnerabilities**
 
+---
+
 ## **무차별 대입 방식으로 사용자 이름 찾기**
 
 사용자 이름은 이메일 주소처럼 쉽게 알아볼 수 있는 패턴을 따르는 경우 특히 추측하기 쉽습니다. 예를 들어, 회사 로그인 아이디는 흔히 `@username.com` 형식으로 되어 있는 것을 볼 수 있습니다 `firstname.lastname@somecompany.com`. 하지만 명확한 패턴이 없더라도, 때로는 높은 권한을 가진 계정조차도 `@username.com`이나 ` `admin`@username.com` 과 같이 예측 가능한 사용자 이름을 사용하여 생성되는 경우가 있습니다 `administrator`.
