@@ -11,7 +11,8 @@ Server-side vulnerabilities (서버사이드 취약점)는 웹 애플리케이�
 
 문제중에 버프 프록시로 잡은 다음에 이미지 눌러서 GET /image?filename=../../../../etc/passwd HTTP/2, 즉 리피터 부분 페이로드를 저런식으로 줘서 인증하고, 파일 전부 나오게 성공!
 
-1. access control 공격
+
+2. access control 공격
 
 **접근 제어(Access Control) 취약점**은 사용자가 시스템에서 무엇을 보고 어떤 권한으로 행동할 수 있는지를 서버가 제대로 검증하지 않아 발생하는 취약점입니다.
 
